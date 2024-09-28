@@ -54,7 +54,13 @@ export default function SignUpPage() {
         onChange={(e) => setuser({ ...user, password: e.target.value })}
         placeholder="Set your passowrd"
       />
-
+      <button
+        className="p-2 border-gray-300  rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+        onClick={onSignUp}
+      >
+        signup here
+      </button>
+      <Link href="/login">login now</Link>
     </div>
   );
 }
