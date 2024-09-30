@@ -1,15 +1,31 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
 export default function SignUpPage() {
+  const router = useRouter();
+
   const [user, setuser] = React.useState({
     email: "",
     password: "",
     username: "",
   });
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+
+  useEffect(() => {
+    if (
+      user.email.length > 0 &&
+      user.password.length > 0 &&
+      user.username.length > 0
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user]);
+
   const onSignUp = async () => {
     try {
       const response = await axios.post("/api/signup", user);
@@ -58,7 +74,7 @@ export default function SignUpPage() {
         className="p-2 border-gray-300  rounded-lg mb-4 focus:outline-none focus:border-gray-600"
         onClick={onSignUp}
       >
-        signup here
+        {buttonDisabled ? "No signUp" : "signUp"}
       </button>
       <Link href="/login">login now</Link>
     </div>
