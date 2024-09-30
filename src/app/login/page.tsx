@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +11,16 @@ export default function LoginPage() {
   });
 
   const onLogin = () => {
+
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const router = useRouter();
+    useEffect(() => {
+      if (user.email.length > 0 && user.password.length > 0) {
+        setButtonDisabled(false);
+      } else {
+        setButtonDisabled(true);
+      }
+    }, [user])
     axios
       .post("/api/login", {
         email: "",
@@ -29,7 +39,7 @@ export default function LoginPage() {
       <hr />
       <label htmlFor="email">email</label>
       <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none  focus:border-gray-600"
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none  focus:border-gray-600 text-black"
         type="email"
         id="email"
         value={user.email}
@@ -38,7 +48,7 @@ export default function LoginPage() {
       />
 
 <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none  focus:border-gray-600"
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none  focus:border-gray-600 text-black"
         type="password"
         id="password"
         value={user.password}

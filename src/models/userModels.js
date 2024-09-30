@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import { type } from 'os';
-import { boolean } from '@storybook/addon-knobs';
 
 const userSchema = new mongoose.Schema({
     username:{
